@@ -6,26 +6,26 @@ import { type Post, type PostDetail } from '~/sanity/schemas/post'
 import { type Project } from '~/sanity/schemas/project'
 
 export const getAllLatestBlogPostSlugsQuery = () =>
-  groq`
+    groq`
   *[_type == "post" && !(_id in path("drafts.**"))
   && publishedAt <="${getDate().toISOString()}"
   && defined(slug.current)] | order(publishedAt desc).slug.current
   `
 
 export const getAllLatestBlogPostSlugs = () => {
-  return client.fetch<string[]>(getAllLatestBlogPostSlugsQuery())
+    return client.fetch<string[]>(getAllLatestBlogPostSlugsQuery())
 }
 
 type GetBlogPostsOptions = {
-  limit?: number
-  offset?: number
-  forDisplay?: boolean
+    limit?: number
+    offset?: number
+    forDisplay?: boolean
 }
 export const getLatestBlogPostsQuery = ({
-  limit = 5,
-  forDisplay = true,
+    limit = 5,
+    forDisplay = true,
 }: GetBlogPostsOptions) =>
-  groq`
+    groq`
   *[_type == "post" && !(_id in path("drafts.**")) && publishedAt <= "${getDate().toISOString()}"
   && defined(slug.current)] | order(publishedAt desc)[0...${limit}] {
     _id,
@@ -39,8 +39,7 @@ export const getLatestBlogPostsQuery = ({
       _ref,
       asset->{
         url,
-        ${
-          forDisplay
+        ${forDisplay
             ? '"lqip": metadata.lqip, "dominant": metadata.palette.dominant,'
             : ''
         }
@@ -48,7 +47,7 @@ export const getLatestBlogPostsQuery = ({
     }
   }`
 export const getLatestBlogPosts = (options: GetBlogPostsOptions) =>
-  client.fetch<Post[] | null>(getLatestBlogPostsQuery(options))
+    client.fetch<Post[] | null>(getLatestBlogPostsQuery(options))
 
 export const getBlogPostQuery = groq`
   *[_type == "post" && slug.current == $slug && !(_id in path("drafts.**"))][0] {
@@ -95,12 +94,12 @@ export const getBlogPostQuery = groq`
     }
   }`
 export const getBlogPost = (slug: string) =>
-  client.fetch<PostDetail | undefined, { slug: string }>(getBlogPostQuery, {
-    slug,
-  })
+    client.fetch<PostDetail | undefined, { slug: string }>(getBlogPostQuery, {
+        slug,
+    })
 
 export const getSettingsQuery = () =>
-  groq`
+    groq`
   *[_type == "settings"][0] {
     "projects": projects[]->{
       _id,
@@ -118,17 +117,20 @@ export const getSettingsQuery = () =>
       "logo": logo.asset->url
     }
 }`
-export const getSettings = () =>
-  client.fetch<{
-    projects: Project[] | null
-    heroPhotos?: string[] | null
-    resume?:
-      | {
-          company: string
-          title: string
-          logo: string
-          start: string
-          end?: string
+export const getSettings = () => {
+
+
+    return client.fetch<{
+        projects: Project[] | null
+        heroPhotos?: string[] | null
+        resume?:
+        | {
+            company: string
+            title: string
+            logo: string
+            start: string
+            end?: string
         }[]
-      | null
-  }>(getSettingsQuery())
+        | null
+    }>(getSettingsQuery())
+}
