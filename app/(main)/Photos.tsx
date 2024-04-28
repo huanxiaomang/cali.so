@@ -46,7 +46,7 @@ export function Photos({ photos }: { photos: string[] }) {
             animate={{
               width,
               opacity: isCompact ? 1 : 0.85,
-              filter: isCompact ? 'grayscale(0)' : 'grayscale(0.5)',
+              filter: isCompact ? 'grayscale(0)' : 'grayscale(0.1)',
               rotate: idx % 2 === 0 ? 2 : -1,
             }}
             whileHover={

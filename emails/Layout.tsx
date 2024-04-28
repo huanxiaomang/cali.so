@@ -39,34 +39,17 @@ export default function Layout({
                 src={`${emailConfig.baseUrl}/icon.png`}
                 width="24"
                 height="24"
-                alt="Cali"
+                alt="Hxm"
                 className="mx-auto my-0"
               />
               <Text className="text-center">
-                <Link
-                  href="https://cali.so"
-                  className="text-zinc-700 underline"
-                >
+                <Link href="#" className="text-zinc-700 underline">
                   <strong>Cali Castle</strong>
                 </Link>
                 <br />
-                开发者、设计师、细节控、创始人
+                亻尔 女子
               </Text>
               <Text className="text-center">
-                <Link
-                  href="https://cali.so/twitter"
-                  className="text-xs text-zinc-600 underline"
-                >
-                  Twitter
-                </Link>{' '}
-                |&nbsp;
-                <Link
-                  href="https://cali.so/youtube"
-                  className="text-xs text-zinc-600 underline"
-                >
-                  YouTube
-                </Link>{' '}
-                |&nbsp;
                 <Link
                   href="https://cali.so/github"
                   className="text-xs text-zinc-600 underline"
